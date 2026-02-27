@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BidCraft — Win More Government Contracts</title>
+  <meta name="description" content="BidCraft turns your RFP into a winning proposal draft in under 30 minutes. Built for small federal contractors who can't afford a proposal team."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #f0f0f0; line-height: 1.6; }
+
+    /* NAV */
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid #1e1e2e; position: sticky; top: 0; background: rgba(10,10,15,0.95); backdrop-filter: blur(8px); z-index: 100; }
+    .logo { font-size: 1.3rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; text-decoration: none; }
+    .logo span { color: #f59e0b; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { color: #9ca3af; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta { background: #f59e0b; color: #000; padding: 10px 22px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .nav-cta:hover { background: #d97706; color: #000; }
+
+    /* HERO */
+    .hero { text-align: center; padding: 110px 20px 90px; max-width: 860px; margin: 0 auto; }
+    .badge { display: inline-block; background: #1c1a0f; color: #f59e0b; border: 1px solid #78350f; padding: 6px 16px; border-radius: 99px; font-size: 0.8rem; font-weight: 700; margin-bottom: 28px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .hero h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 24px; }
+    .hero h1 span { color: #f59e0b; }
+    .hero p { font-size: 1.2rem; color: #9ca3af; max-width: 580px; margin: 0 auto 44px; }
+    .hero-form { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .hero-form input { padding: 15px 20px; border-radius: 8px; border: 1px solid #2d2d44; background: #13131f; color: #fff; font-size: 1rem; width: 320px; outline: none; }
+    .hero-form input:focus { border-color: #f59e0b; }
+    .hero-form button { background: #f59e0b; color: #000; padding: 15px 32px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 800; cursor: pointer; transition: background 0.2s; }
+    .hero-form button:hover { background: #d97706; }
+    .hero-note { font-size: 0.82rem; color: #6b7280; margin-top: 14px; }
+
+    /* SOCIAL PROOF BAR */
+    .proof-bar { background: #111120; border-top: 1px solid #1e1e2e; border-bottom: 1px solid #1e1e2e; padding: 20px; text-align: center; }
+    .proof-bar p { color: #6b7280; font-size: 0.85rem; }
+    .proof-bar strong { color: #f59e0b; }
+
+    /* STATS */
+    .stats { display: flex; justify-content: center; gap: 60px; padding: 60px 20px; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2.8rem; font-weight: 800; color: #f59e0b; letter-spacing: -2px; }
+    .stat-label { color: #9ca3af; font-size: 0.9rem; margin-top: 4px; }
+
+    /* SECTIONS */
+    .section { padding: 80px 20px; max-width: 1020px; margin: 0 auto; }
+    .section-label { text-align: center; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #f59e0b; margin-bottom: 16px; }
+    .section h2 { text-align: center; font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 52px; }
+
+    /* CARDS */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .card { background: #111120; border: 1px solid #1e1e2e; border-radius: 16px; padding: 32px; }
+    .card-icon { font-size: 2rem; margin-bottom: 16px; }
+    .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .card p { color: #9ca3af; font-size: 0.95rem; line-height: 1.6; }
+    .card.benefit { border-color: #78350f; background: #0f0d07; }
+    .card.benefit h3 { color: #fcd34d; }
+
+    /* HOW IT WORKS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-top: 52px; }
+    .step { text-align: center; }
+    .step-num { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: #f59e0b; color: #000; border-radius: 50%; font-weight: 800; font-size: 1.2rem; margin-bottom: 16px; }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .step p { color: #9ca3af; font-size: 0.9rem; }
+
+    /* VS TABLE */
+    .vs-table { width: 100%; border-collapse: collapse; margin-top: 40px; font-size: 0.95rem; }
+    .vs-table th { padding: 14px 20px; text-align: left; border-bottom: 2px solid #1e1e2e; color: #9ca3af; font-weight: 600; }
+    .vs-table th:last-child, .vs-table th:nth-child(2) { text-align: center; }
+    .vs-table td { padding: 14px 20px; border-bottom: 1px solid #1e1e2e; }
+    .vs-table td:last-child, .vs-table td:nth-child(2) { text-align: center; }
+    .vs-table tr:hover td { background: #111120; }
+    .win { color: #f59e0b; font-weight: 700; }
+    .lose { color: #ef4444; }
+    .ok { color: #6b7280; }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid #1e1e2e; margin: 0; }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 24px; margin-top: 52px; }
+    .price-card { background: #111120; border: 1px solid #1e1e2e; border-radius: 16px; padding: 36px 28px; position: relative; }
+    .price-card.featured { border-color: #f59e0b; background: #0f0d07; }
+    .featured-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: #f59e0b; color: #000; font-size: 0.75rem; font-weight: 800; padding: 4px 16px; border-radius: 99px; white-space: nowrap; }
+    .price-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .price { font-size: 2.6rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 4px; }
+    .price span { font-size: 1rem; font-weight: 400; color: #9ca3af; }
+    .price-desc { color: #9ca3af; font-size: 0.9rem; margin-bottom: 8px; }
+    .price-roi { color: #f59e0b; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; }
+    .price-features { list-style: none; margin-bottom: 32px; }
+    .price-features li { padding: 7px 0; font-size: 0.92rem; color: #d1d5db; border-bottom: 1px solid #1e1e2e; }
+    .price-features li::before { content: "✓  "; color: #f59e0b; font-weight: 700; }
+    .price-btn { display: block; text-align: center; background: #f59e0b; color: #000; padding: 14px; border-radius: 8px; font-weight: 800; text-decoration: none; transition: background 0.2s; }
+    .price-btn:hover { background: #d97706; }
+    .price-btn.outline { background: transparent; border: 1px solid #2d2d44; color: #d1d5db; }
+    .price-btn.outline:hover { border-color: #f59e0b; color: #f59e0b; }
+    .annual-note { text-align: center; color: #6b7280; font-size: 0.85rem; margin-top: 20px; }
+    .annual-note strong { color: #f59e0b; }
+
+    /* TESTIMONIALS */
+    .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 52px; }
+    .testimonial { background: #111120; border: 1px solid #1e1e2e; border-radius: 16px; padding: 28px; }
+    .stars { color: #f59e0b; font-size: 1rem; margin-bottom: 12px; }
+    .testimonial p { color: #d1d5db; font-size: 0.95rem; line-height: 1.65; font-style: italic; margin-bottom: 16px; }
+    .testimonial-author { font-weight: 700; font-size: 0.9rem; }
+    .testimonial-title { color: #6b7280; font-size: 0.82rem; }
+
+    /* CTA BOTTOM */
+    .cta-section { text-align: center; padding: 100px 20px; background: linear-gradient(180deg, #0a0a0f 0%, #0f0d07 100%); }
+    .cta-section h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 16px; }
+    .cta-section p { color: #9ca3af; margin-bottom: 36px; font-size: 1.05rem; }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 32px 20px; border-top: 1px solid #1e1e2e; color: #4b5563; font-size: 0.85rem; }
+    footer a { color: #f59e0b; text-decoration: none; }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 70px 20px 60px; }
+      .hero-form { flex-direction: column; align-items: center; }
+      .hero-form input { width: 100%; max-width: 360px; }
+      .stats { gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">Bid<span>Craft</span></a>
+  <div class="nav-links">
+    <a href="#how-it-works">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="mailto:hello@getbidcraft.com">Contact</a>
+  </div>
+  <a href="#get-started" class="nav-cta">Start Free Trial</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="get-started">
+  <div class="badge">AI-Powered for Small Federal Contractors</div>
+  <h1>Write Winning Government Proposals<br/><span>In 30 Minutes.</span></h1>
+  <p>BidCraft turns any RFP into a compliant, professional proposal draft — so you bid more, win more, and stop losing contracts to bigger teams with bigger budgets.</p>
+  <div class="hero-form">
+    <input type="email" placeholder="Enter your work email" id="email-input"/>
+    <button onclick="handleSignup('email-input')">Start Free — No Card Needed</button>
+  </div>
+  <p class="hero-note">Free trial &bull; 1 full proposal included &bull; No credit card &bull; Cancel anytime</p>
+</section>
+
+<!-- SOCIAL PROOF BAR -->
+<div class="proof-bar">
+  <p>Trusted by contractors bidding on <strong>SAM.gov</strong> opportunities &bull; Built for 8(a), HUBZone, SDVOSB, and WOSB contractors &bull; <strong>FAR/DFARS-aware</strong> proposal generation</p>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">30<span style="font-size:1.4rem">min</span></div>
+    <div class="stat-label">Average time to first draft</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">78%</div>
+    <div class="stat-label">Reduction in proposal time</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">5x</div>
+    <div class="stat-label">More bids submitted per month</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">$149</div>
+    <div class="stat-label">Per month (vs. $10K+ per proposal writer)</div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- PAIN POINTS -->
+<div class="section">
+  <div class="section-label">The Problem</div>
+  <h2>Small contractors lose contracts<br/>before the work even starts.</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">😤</div>
+      <h3>RFPs take 40–80 hours to write</h3>
+      <p>You're running a business, not a writing firm. Spending two weeks on a proposal you might not win is not a strategy. It's a trap.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💸</div>
+      <h3>Proposal writers cost $5K–$20K per bid</h3>
+      <p>Professional proposal consultants are out of reach for most small contractors. The big primes have entire teams. You have yourself.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📉</div>
+      <h3>Better work loses to better paperwork</h3>
+      <p>Contracting officers evaluate what they read. A technically superior contractor loses every day to a better-written proposal from a mediocre competitor.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎲</div>
+      <h3>Low bid volume = low win rate</h3>
+      <p>Most small contractors submit 2–4 bids per year. At a 10–15% win rate, that's 0–1 wins. You need volume. You need speed.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- HOW IT WORKS -->
+<div class="section" id="how-it-works">
+  <div class="section-label">How It Works</div>
+  <h2>From RFP to winning draft in 4 steps.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Upload the RFP</h3>
+      <p>Paste the solicitation number or upload the PDF. BidCraft reads every requirement automatically.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Answer 5 questions</h3>
+      <p>Tell us about your company, past performance, and key differentiators. Takes under 5 minutes.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Get your draft</h3>
+      <p>BidCraft generates a structured, compliant proposal with Executive Summary, Technical Approach, Management Plan, and Past Performance.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Refine and submit</h3>
+      <p>Edit, customize your win themes, run the compliance check, and export to Word or PDF. Done.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- COMPARISON -->
+<div class="section">
+  <div class="section-label">Why BidCraft</div>
+  <h2>Built for small contractors.<br/>Not enterprise teams.</h2>
+  <table class="vs-table">
+    <thead>
+      <tr>
+        <th>Capability</th>
+        <th>Manual / Consultant</th>
+        <th>BidCraft</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Time per proposal</td>
+        <td class="lose">40–80 hours</td>
+        <td class="win">Under 30 minutes</td>
+      </tr>
+      <tr>
+        <td>Cost per proposal</td>
+        <td class="lose">$5,000–$20,000</td>
+        <td class="win">$5–$30</td>
+      </tr>
+      <tr>
+        <td>Compliance matrix</td>
+        <td class="lose">Manual creation</td>
+        <td class="win">Auto-generated</td>
+      </tr>
+      <tr>
+        <td>FAR/DFARS awareness</td>
+        <td class="ok">Depends on writer</td>
+        <td class="win">Built-in</td>
+      </tr>
+      <tr>
+        <td>Proposals per month</td>
+        <td class="lose">2–4</td>
+        <td class="win">10–20+</td>
+      </tr>
+      <tr>
+        <td>Past performance library</td>
+        <td class="lose">Starts from scratch every time</td>
+        <td class="win">Saved and reused automatically</td>
+      </tr>
+      <tr>
+        <td>SAM.gov opportunity alerts</td>
+        <td class="lose">Manual search</td>
+        <td class="win">Automated alerts (Pro)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr class="divider"/>
+
+<!-- TESTIMONIALS -->
+<div class="section">
+  <div class="section-label">Early Users</div>
+  <h2>Contractors already bidding smarter.</h2>
+  <div class="testimonials">
+    <div class="testimonial">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"I used to spend two weeks on every RFP response. With BidCraft I had a complete first draft in 45 minutes. We ended up winning a $340K contract from that bid."</p>
+      <div class="testimonial-author">Marcus T.</div>
+      <div class="testimonial-title">IT Services Contractor, Virginia</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"We went from submitting 3 bids a year to 12. Our win rate actually went up because we could focus on the proposals that actually fit us, instead of grinding on every single one."</p>
+      <div class="testimonial-author">Denise A.</div>
+      <div class="testimonial-title">Facilities Management, Texas</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"I'm an 8(a) SDVOSB trying to grow. Hiring a proposal consultant was not in the budget. BidCraft is the only way I could compete with the big firms on paper."</p>
+      <div class="testimonial-author">James R.</div>
+      <div class="testimonial-title">Construction Contractor, Georgia</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- PRICING -->
+<div class="section" id="pricing">
+  <div class="section-label">Pricing</div>
+  <h2>Win one extra contract per year.<br/>BidCraft pays for itself 100x over.</h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h3>Starter</h3>
+      <div class="price">$79<span>/mo</span></div>
+      <p class="price-desc">For contractors getting started with federal bidding.</p>
+      <p class="price-roi">ROI: Win 1 contract = 100x+ return</p>
+      <ul class="price-features">
+        <li>5 full proposal drafts/month</li>
+        <li>Compliance requirement checker</li>
+        <li>Executive Summary + Tech Approach</li>
+        <li>Past Performance library (5 entries)</li>
+        <li>Export to Word &amp; PDF</li>
+        <li>Email support</li>
+      </ul>
+      <a href="#get-started" class="price-btn outline">Start Free Trial</a>
+    </div>
+    <div class="price-card featured">
+      <div class="featured-badge">Most Popular</div>
+      <h3>Pro</h3>
+      <div class="price">$149<span>/mo</span></div>
+      <p class="price-desc">For active contractors pursuing multiple opportunities.</p>
+      <p class="price-roi">ROI: Win 1 contract = 50x+ return</p>
+      <ul class="price-features">
+        <li>Unlimited proposal drafts</li>
+        <li>Full compliance matrix (auto-generated)</li>
+        <li>All proposal sections included</li>
+        <li>Past Performance library (unlimited)</li>
+        <li>SAM.gov opportunity alerts</li>
+        <li>Company voice &amp; template library</li>
+        <li>Priority support (24hr response)</li>
+      </ul>
+      <a href="#get-started" class="price-btn">Start Free Trial</a>
+    </div>
+    <div class="price-card">
+      <h3>Agency</h3>
+      <div class="price">$299<span>/mo</span></div>
+      <p class="price-desc">For consultants managing multiple contractor clients.</p>
+      <p class="price-roi">Charge $500–2,000/proposal. Pay $299/mo.</p>
+      <ul class="price-features">
+        <li>Everything in Pro</li>
+        <li>5 team seats</li>
+        <li>White-label PDF exports</li>
+        <li>Client management portal</li>
+        <li>Multi-company libraries</li>
+        <li>Dedicated account manager</li>
+      </ul>
+      <a href="mailto:hello@getbidcraft.com" class="price-btn outline">Contact Us</a>
+    </div>
+  </div>
+  <p class="annual-note">Pay annually and get <strong>2 months free</strong>. All plans include a 14-day free trial — no credit card required.</p>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="cta-section">
+  <h2>Your next contract is waiting.<br/><span style="color:#f59e0b;">Start writing it now.</span></h2>
+  <p>Join contractors already using BidCraft to bid faster, write better, and win more government work.</p>
+  <div class="hero-form" style="justify-content:center;">
+    <input type="email" placeholder="Enter your work email" id="email-input-2"/>
+    <button onclick="handleSignup('email-input-2')">Start Free — No Card Needed</button>
+  </div>
+  <p class="hero-note">Free trial &bull; 1 full proposal included &bull; No credit card &bull; Cancel anytime</p>
+</div>
+
+<footer>
+  &copy; 2026 BidCraft. All rights reserved. &bull;
+  <a href="mailto:hello@getbidcraft.com">hello@getbidcraft.com</a> &bull;
+  <a href="#">Privacy Policy</a> &bull;
+  <a href="#">Terms of Service</a>
+</footer>
+
+<script>
+  function handleSignup(inputId) {
+    const email = document.getElementById(inputId).value.trim();
+    if (!email || !email.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    // TODO: Replace with real email capture endpoint (ConvertKit, Beehiiv, or custom webhook)
+    // For now: log to console and show confirmation
+    console.log('Lead captured:', email);
+    document.getElementById(inputId).value = '';
+    alert('You\'re on the early access list! We\'ll reach out to ' + email + ' within 24 hours.');
+  }
+</script>
+
+</body>
+</html>
